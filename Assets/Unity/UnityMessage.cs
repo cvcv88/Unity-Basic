@@ -71,7 +71,8 @@ public class UnityMessage : MonoBehaviour
 
 		// 역할 : 핵심 게임 로직 구현
 		// Debug.Log("Update");
-		Debug.Log($"{gameObject.name} Update");
+		// Debug.Log($"{gameObject.name} Update");
+		Debug.Log("Update");
 	}
 
 	private void LateUpdate()
@@ -80,7 +81,8 @@ public class UnityMessage : MonoBehaviour
 
 		// 역할 : 게임 진행 결과가 필요한 후처리(동작이 있는) 기능 구현
 		// ex) 플레이어의 위치가 결정된 후에 카메라의 위치 설정
-		Debug.Log($"LateUpdate");
+		// Debug.Log($"LateUpdate");
+		Debug.Log("LateUpdate");
 	}
 
 	private void FixedUpdate()
