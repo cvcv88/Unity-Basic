@@ -31,9 +31,11 @@ public class UnityTransform : MonoBehaviour
 	private void Translate()
 	{
 		// position을 이용한 이동(따로 설정 X, 기본으로 world 기준으로 움직임)
+		// 순간이동
 		transform.position += new Vector3(1, 0, 0); // 1
 
 		// 세상(월드)를 기준으로 이동
+		// 서서히 이동(권장함)
 		transform.Translate(1, 0, 0, Space.World); // 2
 
 		// 자신을 기준으로 이동, 설정 안하면 self 기준
@@ -87,6 +89,14 @@ public class UnityTransform : MonoBehaviour
 		// Euler각도를 Quaternion으로 변환
 		transform.rotation = Quaternion.Euler(0, 90, 0);
 		Vector3 rotation = transform.rotation.eulerAngles;
+
+		/*Quaternion rotation1 = transform.rotation;
+		
+		Vector2 euler = rotation1.eulerAngles;
+		euler += new Vector3(10, 10, 10);
+		transform.rotation = Quaternion.Euler(euler);*/
+
+
 	}
 
 
