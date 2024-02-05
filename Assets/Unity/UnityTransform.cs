@@ -135,11 +135,11 @@ public class UnityTransform : MonoBehaviour
 
 		/*if (IsWorld)
 		{
-			transform.Translate(x * moveSpeed * Time.deltaTime, 0, y * moveSpeed * Time.deltaTime, Space.World);
+			transform.Translate(x * movePower * Time.deltaTime, 0, y * movePower * Time.deltaTime, Space.World);
 		}
 		else
 		{
-			transform.Translate(x * moveSpeed * Time.deltaTime, 0, y * moveSpeed * Time.deltaTime, Space.Self);
+			transform.Translate(x * movePower * Time.deltaTime, 0, y * movePower * Time.deltaTime, Space.Self);
 		}*/
 
 		/*// Vector3.forward : 0, 0, 1, transform.forward : 파란색 선 방향으로 앞방향

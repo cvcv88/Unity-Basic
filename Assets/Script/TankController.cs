@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,20 +8,34 @@ using UnityEngine.UIElements;
 
 public class TankController : MonoBehaviour
 {
+	public Rigidbody rigid;
+	public Transform headTranform;
 	public Transform firePoint;
 	// public GameObject bulletPrefab;
 	public Bullet bulletPrefab;
 
-	public float moveSpeed;
+	public float movePower;
 	public float rotateSpeed;
 	public float bulletForce = 10f;
+	public float maxSpeed;
 
 	Vector3 moveDir;
 
+	public CinemachineVirtualCamera normalCamera;
+	public CinemachineVirtualCamera zoomCamera;
+
+	public AudioSource shootSound;
+
 	private void Update()
 	{
-		Move();
+		// Move();
 		Rotate();
+		// Head();
+	}
+
+	private void FixedUpdate()
+	{
+		Move();
 	}
 
 	private void OnMove(InputValue value)
@@ -31,7 +46,17 @@ public class TankController : MonoBehaviour
 	}
     private void Move()
     {
-        transform.Translate(0, 0, moveDir.z * moveSpeed * Time.deltaTime, Space.Self); // Translate, Rotate : 3차원, 좌표 : 2차원
+		Vector3 forceDir = transform.forward * moveDir.z;
+		// 내가 보고 있는 앞 방향으로 z 입력한 만큼
+		rigid.AddForce(forceDir * movePower, ForceMode.Force);
+		// 물리적 처리니까 Update말고 FixedUpdate에 넣기
+        transform.Translate(0, 0, moveDir.z * movePower * Time.deltaTime, Space.Self); // Translate, Rotate : 3차원, 좌표 : 2차원
+
+		if(rigid.velocity.magnitude > maxSpeed) // 최고 속도 넘긴 경우 / magnitude 크기 현재 속도의 크기가 최고 속도보다 클때
+		{
+			rigid.velocity = rigid.velocity.normalized * maxSpeed; // 단위벡터(크기는 1, 방향만 존재하는 벡터) * maxSpeed로 속도 맞추기
+			// normalized : 단위벡터로 만들기
+		}
     }
 	private void Rotate()
 	{
@@ -49,6 +74,7 @@ public class TankController : MonoBehaviour
 		Debug.Log("발사");
 		// Fire();
 		StartCoroutine(FireCoroutine());
+		shootSound.Play();
 	}
 	private void Fire()
 	{
@@ -61,6 +87,9 @@ public class TankController : MonoBehaviour
 		Debug.Log(bulletForce);
 		Bullet bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 		bullet.force = bulletForce;
+
+		shootSound.Play();
+		Debug.Log("소리");
 	}
 	IEnumerator FireCoroutine()
 	{
@@ -73,5 +102,20 @@ public class TankController : MonoBehaviour
 		Debug.Log("코루틴 종료");
 		Fire();
 	}
+
+	private void OnZoom(InputValue value)
+	{
+		if(value.isPressed)
+		{
+			Debug.Log("Zoom On");
+			zoomCamera.Priority = 50;
+		}
+        else
+        {
+			Debug.Log("Zoom Off");
+			zoomCamera.Priority = 1;
+        }
+    }
+
 
 }
