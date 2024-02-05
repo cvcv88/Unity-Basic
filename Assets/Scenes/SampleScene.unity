@@ -1996,7 +1996,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 526793063}
-  bulletPrefab: {fileID: 5358850101536584636, guid: 3c4750d8a0467fd4bbcae9cafcac9bc6, type: 3}
+  bulletPrefab: {fileID: -5819012144708309496, guid: 3c4750d8a0467fd4bbcae9cafcac9bc6, type: 3}
   moveSpeed: 10
   rotateSpeed: 30
   bulletForce: 20
