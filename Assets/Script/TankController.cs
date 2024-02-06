@@ -116,6 +116,4 @@ public class TankController : MonoBehaviour
 			zoomCamera.Priority = 1;
         }
     }
-
-
 }
